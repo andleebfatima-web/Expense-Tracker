@@ -1,6 +1,9 @@
 import type { Express, Request, Response, NextFunction } from 'express';
 import express from 'express';
 
+import { expensesArr } from './constant.js';
+import { calculateTotal } from './utilityfunc.js';
+
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
 
@@ -15,6 +18,16 @@ app.get('/', (req: Request, res: Response) => {
     timestamp: new Date().toISOString()
   });
 });
+
+
+app.get('/expenses',(req:Request,res:Response)=>{
+return res.json(expensesArr);
+})
+
+app.get('expenses/total',(req:Request,res:Response)=>{
+const total:number=calculateTotal(expensesArr);
+return total;
+})
 
 // Example API Endpoint
 app.get('/api/v1/status', (req: Request, res: Response) => {
