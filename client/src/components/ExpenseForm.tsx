@@ -6,7 +6,15 @@ export function ExpenseForm({
 }: {
   appendExpense: (expense: Expense) => void;
 }) {
-  const [expense, setExpense] = useState<Partial<Expense>>({});
+  const [expense, setExpense] = useState<Partial<Expense>>({
+    amount: 0,
+    description: "",
+    category: "others",
+    // userId: "05",
+    // date: new Date(),
+    // id: "2",
+  });
+
   interface CategoryArr {
     id: number;
     c: string;

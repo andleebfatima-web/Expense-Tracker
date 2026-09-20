@@ -19,7 +19,7 @@ export let expensesArr:Expense[]=[
   ,{
       id:'3',
       amount:2000,
-      category:'food',
+      category:'others',
       description:'The expense for food',
       date: new Date(),
       userId:'03',
