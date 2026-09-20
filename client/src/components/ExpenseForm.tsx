@@ -6,7 +6,9 @@ export function ExpenseForm({
 }: {
   appendExpense: (expense: Expense) => void;
 }) {
-  const [expense, setExpense] = useState<Partial<Expense>>({
+  const [expense, setExpense] = useState<
+    Partial<Omit<Expense, "userId" | "date" | "id">>
+  >({
     amount: 0,
     description: "",
     category: "others",
