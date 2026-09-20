@@ -2,8 +2,12 @@ import type { Express, Request, Response, NextFunction } from "express";
 import express from "express";
 
 import { expensesArr } from "./constant.js";
-import { calculateTotal } from "./utilityfunc.js";
-import type { CreateExpenseDto } from "./dtos.js";
+import { calculateTotal, getTotalsByCategory } from "./utilityfunc.js";
+import type {
+  CreateExpenseDto,
+  ExpenseSummaryDto,
+  UpdateExpenseDto,
+} from "./dtos.js";
 import type { Expense } from "./types.js";
 
 const app: Express = express();
@@ -21,7 +25,7 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-app.get(
+app.post(
   "/expenses",
   (req: Request<{}, {}, CreateExpenseDto>, res: Response) => {
     const { description = "", category, amount } = req.body;
@@ -37,6 +41,26 @@ app.get(
     return res.status(201).json(newExpense);
   },
 );
+
+app.patch(
+  "/expenses/:id",
+  (req: Request<{ id: string }, {}, UpdateExpenseDto>, res: Response) => {
+    const { id } = req.params;
+    const { amount } = req.body;
+    const expense = expensesArr.find((e) => e.id === id);
+    const updatedExpense = { ...expense, amount };
+    return res.status(302).json(updatedExpense);
+  },
+);
+
+app.get("/expenses/summary", (req: Request, res: Response) => {
+  const expensesSummary: ExpenseSummaryDto[] = expensesArr;
+});
+
+app.get("expenses/totals-by-category", (req: Request, res: Response) => {
+  const totalExpensesByCategory = getTotalsByCategory(expensesArr);
+  return res.json(totalExpensesByCategory);
+});
 
 app.get("/expenses/:id", (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
