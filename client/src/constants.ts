@@ -1,5 +1,5 @@
-import type{ Expense } from "./types.ts"
-export const expensesArr:Expense[]=[
+import type{ Expense } from "./types"
+export let expensesArr:Expense[]=[
   {
       id:'1',
       amount:2000,
@@ -12,7 +12,7 @@ export const expensesArr:Expense[]=[
       id:'2',
       amount:2000,
       category:'utilities',
-      description:'The expense for food',
+      description:'',
       date: new Date(),
       userId:'02',
   }
