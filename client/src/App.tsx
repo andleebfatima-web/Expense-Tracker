@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ExpenseForm } from "./components/ExpenseForm";
 import { ExpenseList } from "./components/ExpenseList";
-import type { Expense } from "./types";
+import type { Expense } from "./types/types";
 import { getLastItem } from "./utils/addExpense";
 function App() {
   // const [expenses, setExpenses] = useState<Expense[]>(expensesArr);

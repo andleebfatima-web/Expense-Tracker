@@ -1,27 +1,27 @@
-import type{ Expense } from "./types.ts"
-export const expensesArr:Expense[]=[
+import type { Expense } from "./types/Expense.js";
+export const expensesArr: Expense[] = [
   {
-      id:'1',
-      amount:2000,
-      category:'food',
-      description:'The expense for food',
-      date: new Date(),
-      userId:'01',
-  }
-  ,{
-      id:'2',
-      amount:2000,
-      category:'utilities',
-      description:'The expense for food',
-      date: new Date(),
-      userId:'02',
-  }
-  ,{
-      id:'3',
-      amount:2000,
-      category:'food',
-      description:'The expense for food',
-      date: new Date(),
-      userId:'03',
-  }
-]
+    id: "1",
+    amount: 2000,
+    category: "food",
+    description: "The expense for food",
+    date: new Date(),
+    userId: "01",
+  },
+  {
+    id: "2",
+    amount: 2000,
+    category: "utilities",
+    description: "The expense for food",
+    date: new Date(),
+    userId: "02",
+  },
+  {
+    id: "3",
+    amount: 2000,
+    category: "food",
+    description: "The expense for food",
+    date: new Date(),
+    userId: "03",
+  },
+];
