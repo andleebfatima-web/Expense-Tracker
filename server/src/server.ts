@@ -1,14 +1,15 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import express from "express";
 
-import { expensesArr } from "./constant.js";
-import { calculateTotal, getTotalsByCategory } from "./utilityfunc.js";
+import { expensesArr } from "./constant.ts";
+import { calculateTotal, getTotalsByCategory } from "./utils/utilityfunc.ts";
+
 import type {
   CreateExpenseDto,
   ExpenseSummaryDto,
   UpdateExpenseDto,
-} from "./dtos.js";
-import type { Expense } from "./types.js";
+} from "./dtos.ts";
+import type { Expense } from "./types/Expense.js";
 
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
@@ -18,12 +19,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Basic Health Check Route
-app.get("/", (req: Request, res: Response) => {
-  res.status(200).json({
-    message: "Server is running smoothly!",
-    timestamp: new Date().toISOString(),
-  });
-});
+// app.get("/health", (req: Request, res: Response) => {
+//   res.status(200).json({
+//     message: "Server is running smoothly!",
+//     timestamp: new Date().toISOString(),
+//   });
+// });
 
 app.post(
   "/expenses",
@@ -38,6 +39,7 @@ app.post(
       date: new Date(),
     };
     expensesArr.push(newExpense);
+    console.log("expensesArr", expensesArr);
     return res.status(201).json(newExpense);
   },
 );
@@ -49,23 +51,24 @@ app.patch(
     const { amount } = req.body;
     const expense = expensesArr.find((e) => e.id === id);
     const updatedExpense = { ...expense, amount };
-    return res.status(302).json(updatedExpense);
+    return res.status(200).json(updatedExpense);
   },
 );
 
 app.get("/expenses/summary", (req: Request, res: Response) => {
   const expensesSummary: ExpenseSummaryDto[] = expensesArr;
+  return res.status(200).json(expensesSummary);
 });
 
-app.get("expenses/totals-by-category", (req: Request, res: Response) => {
+app.get("/expenses/totals-by-category", (req: Request, res: Response) => {
   const totalExpensesByCategory = getTotalsByCategory(expensesArr);
-  return res.json(totalExpensesByCategory);
+  return res.status(200).json(totalExpensesByCategory);
 });
 
 app.get("/expenses/:id", (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
-
-  res.status(200).json("userExpense");
+  const userExpense = expensesArr.find((e) => e.id === id);
+  res.status(200).json(userExpense);
 });
 
 app.get("expenses/total", (req: Request, res: Response) => {

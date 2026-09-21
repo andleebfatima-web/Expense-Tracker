@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Category, Expense } from "../types";
+import type { Category, Expense } from "../types/types";
 
 export function ExpenseForm({
   appendExpense,
